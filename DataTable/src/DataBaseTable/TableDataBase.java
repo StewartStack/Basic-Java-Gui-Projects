@@ -4,6 +4,9 @@
  */
 package DataBaseTable;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author jcls1987
@@ -26,20 +29,20 @@ public class TableDataBase extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         dataTblFrm = new javax.swing.JTable();
-        nameLbl = new javax.swing.JLabel();
+        javax.swing.JLabel nameLbl = new javax.swing.JLabel();
         inputTxtLbl = new javax.swing.JTextField();
-        companyLbl = new javax.swing.JLabel();
+        javax.swing.JLabel companyLbl = new javax.swing.JLabel();
         inputTxt2 = new javax.swing.JTextField();
-        numberLbl = new javax.swing.JLabel();
+        javax.swing.JLabel numberLbl = new javax.swing.JLabel();
         inputTxt3 = new javax.swing.JTextField();
-        emailLbl = new javax.swing.JLabel();
+        javax.swing.JLabel emailLbl = new javax.swing.JLabel();
         inputTxt4 = new javax.swing.JTextField();
-        addBtn = new javax.swing.JButton();
-        clrBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
+        javax.swing.JButton addBtn = new javax.swing.JButton();
+        javax.swing.JButton clrBtn = new javax.swing.JButton();
+        javax.swing.JButton deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +85,11 @@ public class TableDataBase extends javax.swing.JFrame {
 
         addBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         addBtn.setText("Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         clrBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         clrBtn.setText("Clear");
@@ -174,6 +182,23 @@ public class TableDataBase extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        String name = inputTxtLbl.getText();
+        String company = inputTxt2.getText();
+        String number = inputTxt3.getText();
+        String email = inputTxt4.getText();
+        
+        if (name.isEmpty() || company.isEmpty() || number.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                                        "Please enter all fields",
+                                        "Try again",
+                                        JOptionPane.ERROR_MESSAGE);
+        } else {
+            DefaultTableModel model = (DefaultTableModel) dataTblFrm.getModel();
+            model.addRow(new Object[]{name, company, number, email});
+        }
+    }//GEN-LAST:event_addBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -210,19 +235,10 @@ public class TableDataBase extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
-    private javax.swing.JButton clrBtn;
-    private javax.swing.JLabel companyLbl;
     private javax.swing.JTable dataTblFrm;
-    private javax.swing.JButton deleteBtn;
-    private javax.swing.JLabel emailLbl;
     private javax.swing.JTextField inputTxt2;
     private javax.swing.JTextField inputTxt3;
     private javax.swing.JTextField inputTxt4;
     private javax.swing.JTextField inputTxtLbl;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel nameLbl;
-    private javax.swing.JLabel numberLbl;
     // End of variables declaration//GEN-END:variables
 }
