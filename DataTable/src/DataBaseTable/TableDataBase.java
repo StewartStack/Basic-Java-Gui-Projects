@@ -4,8 +4,12 @@
  */
 package DataBaseTable;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -45,6 +49,14 @@ public class TableDataBase extends javax.swing.JFrame {
         javax.swing.JButton deleteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DataBase Table", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 18), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -93,9 +105,19 @@ public class TableDataBase extends javax.swing.JFrame {
 
         clrBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         clrBtn.setText("Clear");
+        clrBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clrBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         deleteBtn.setText("Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -198,6 +220,46 @@ public class TableDataBase extends javax.swing.JFrame {
             model.addRow(new Object[]{name, company, number, email});
         }
     }//GEN-LAST:event_addBtnActionPerformed
+
+    private void clrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clrBtnActionPerformed
+        
+    }//GEN-LAST:event_clrBtnActionPerformed
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        int row = dataTblFrm.getSelectedRow();
+        
+        if (row  < 0) {
+            JOptionPane.showMessageDialog(this,
+                                       "No row is selected! Please select one row",
+                                       "Select row",
+                                       JOptionPane.ERROR_MESSAGE);
+                                                 
+        } else {
+            DefaultTableModel model = (DefaultTableModel) dataTblFrm.getModel();
+            model.removeRow((int) row);
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        DefaultTableModel model = (DefaultTableModel) dataTblFrm.getModel();
+        Vector<Vector> tableData = model.getDataVector();
+        
+        try {
+            FileOutputStream file = new FileOutputStream("file.bin");
+            ObjectOutputStream output = new ObjectOutputStream(file);
+            
+            output.writeObject(tableData);
+            
+            output.close();
+            file.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
