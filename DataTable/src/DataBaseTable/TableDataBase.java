@@ -14,7 +14,10 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author jcls1987
+ * @author StewartStack
+ * Database table
+ * Project of the creation of a working table form that updates and saves information that is inputed
+ * 04/02/2023
  */
 public class TableDataBase extends javax.swing.JFrame {
 
